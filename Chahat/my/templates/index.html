@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'> <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    {% if title %}
+        <title>Suggestion Site - {{ title }}</title>
+    {% else %}
+        <title>Suggestion Site</title>
+    {% endif %}
+  </head>
+<body>
+  <header>
+    <nav id="header-nav" class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-brand">
+            <a href="index.html"><h1>Suggest Gift</h1></a>
+          </div>
+
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <div id="collapsable-nav" class="collapse navbar-collapse">
+           <ul id="nav-list" class="nav navbar-nav navbar-right">
+            <li>
+              <a href="{{ url_for('home') }}">
+                <br class="hidden-xs"> Home</a>
+            </li>
+            <li>
+              <a href="{{ url_for('about') }}">
+                <br class="hidden-xs"> About</a>
+            </li>
+            {% if current_user.is_authenticated %}
+                <li>
+              <a href="{{ url_for('account') }}">
+                <br class="hidden-xs"> Account</a>
+            </li>
+            <li>
+              <a href="{{ url_for('logout') }}">
+                <br class="hidden-xs"> Logout</a>
+            </li>
+            {% else %}
+            <li>
+              <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
+                <br class="hidden-xs"> Login</a>
+            </li>
+            <li>
+              <a onclick="document.getElementById('id02').style.display='block'" style="width:auto;">
+                <br class="hidden-xs"> Register</a>
+            </li>
+            {% endif %}
+          </ul><!-- #nav-list -->
+        </div><!-- .collapse .navbar-collapse -->
+      </div><!-- .container -->
+    </nav><!-- #header-nav -->
+  </header>
+  
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+          {% block content %}{% endblock %}
+{% if not current_user.is_authenticated %}
+ 
+  <div id="id02" class="modal content-section">
+        <form class="modal-content animate" method="POST" action="{{ url_for('register') }}">
+          <div class="imgcontainer"> <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span><img src="static\profile_pics\avtar.jpg" alt="Avatar" class="avatar"></div>
+            {{ forml.hidden_tag() }}
+            <fieldset class="form-group">
+              <div style="margin: 50px">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                <div class="form-group">
+                    {{ forml.first_name.label(class="form-control-label") }}
+                    
+                    {{ forml.first_name(class="form-control ") }}
+                    
+                </div>
+                <div class="form-group">
+                    {{ forml.last_name.label(class="form-control-label") }}
+                    
+                    {{ forml.last_name(class="form-control ") }}
+                    
+                </div>
+                <div class="form-group">
+                    {{ forml.email.label(class="form-control-label") }}
+                    {% if forml.email.errors %}
+                        {{ forml.email(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in forml.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ forml.email(class="form-control ") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ forml.password.label(class="form-control-label") }}
+                    {% if forml.password.errors %}
+                        {{ forml.password(class="form-control  is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in forml.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ forml.password(class="form-control ") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ forml.confirm_password.label(class="form-control-label") }}
+                    {% if forml.confirm_password.errors %}
+                        {{ forml.confirm_password(class="form-control  is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in forml.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ forml.confirm_password(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group border-left mb-4">
+                {{ forml.submit(class="btn btn-outline-info") }}
+                </div>
+                <div class="border-top pt-3">
+                  <small class="text-muted">
+                      Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+                  </small>
+                </div>
+            </fieldset>
+            
+
+        </form>
+    
+    
+     </div>
+  </div>
+
+
+  <div id="id01" class="modal">
+
+        <form class="modal-content animate" method="POST" action="{{ url_for('login') }}">
+            <div class="imgcontainer"> <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span><img src="static\profile_pics\avtar.jpg" alt="Avatar" class="avatar"></div>
+            {{ form.hidden_tag() }}<div style="margin: 50px">
+            <fieldset class="form-group ">
+                <legend class="border-bottom mb-4">Log In</legend>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    
+                    {{ form.email(class="form-control ") }}
+                    
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    
+                    {{ form.password(class="form-control ") }}
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+                <small class="text-muted ml-2">
+                    <a style="float: right" href="#">Forgot Password?</a>
+                </small>
+            </div>
+           <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="#">Sign Up Now</a>
+            </small>
+            </div>
+             </div>
+        </form>
+  </div>
+
+
+
+
+
+
+  
+{% endif %}
+  <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        var modal = document.getElementById('id02');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+  </script>
+  <!-- jQuery (Bootstrap JS plugins depend on it) -->
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
