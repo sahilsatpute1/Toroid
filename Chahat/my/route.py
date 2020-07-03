@@ -32,14 +32,14 @@ def home():
     form=LoginForm()
     if form.validate_on_submit():
         email=form.email.data
-        print ("siuccess")
-        return render_template('home.html', form=form,email=email)
+        print ("success")
+        return render_template('home.html', form=form, email=email)
     return render_template('home.html', form=form, forml=RegistrationForm())
 
 
 @app.route("/about")
 def about():
-    return render_template('about.html')
+    return render_template('about.html', form=LoginForm(), forml=RegistrationForm())
 
 
 @app.route("/register", methods=['GET', 'POST'])

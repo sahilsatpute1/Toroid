@@ -34,31 +34,31 @@
 
         <div id="collapsable-nav" class="collapse navbar-collapse">
            <ul id="nav-list" class="nav navbar-nav navbar-right">
-            <li>
+            <li class="active">
               <a href="{{ url_for('home') }}">
-                <br class="hidden-xs"> Home</a>
+                <br class="hidden-xs" > Home</a>
             </li>
-            <li>
+            <li class="active">
               <a href="{{ url_for('about') }}">
-                <br class="hidden-xs"> About</a>
+                <br class="hidden-xs" class="active"> About</a>
             </li>
             {% if current_user.is_authenticated %}
-                <li>
+              <li class="active">
               <a href="{{ url_for('account') }}">
-                <br class="hidden-xs"> Account</a>
+                <br class="hidden-xs" class="active"> Account</a>
             </li>
-            <li>
+            <li class="active">
               <a href="{{ url_for('logout') }}">
-                <br class="hidden-xs"> Logout</a>
+                <br class="hidden-xs" class="active"> Logout</a>
             </li>
             {% else %}
             <li>
               <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
-                <br class="hidden-xs"> Login</a>
+                <br class="hidden-xs" class="active"> Login</a>
             </li>
             <li>
               <a onclick="document.getElementById('id02').style.display='block'" style="width:auto;">
-                <br class="hidden-xs"> Register</a>
+                <br class="hidden-xs" class="active"> Register</a>
             </li>
             {% endif %}
           </ul><!-- #nav-list -->
