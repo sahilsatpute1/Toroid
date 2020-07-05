@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+{% block content %}
+
+
+<form class="modal-content animate" method="POST" action="" enctype="multipart/form-data" >
+	{{ form_d.hidden_tag() }}
+	<fieldset class="form-group">
+	  <div style="margin: 50px">
+	    <legend class="border-bottom mb-4">Add the Hobby into our Database</legend>
+	    <div class="form-group">
+	        {{ form_d.tag.label(class="form-control-label") }}
+	        
+	        {{ form_d.tag(class="form-control ") }}
+	        
+	    </div>
+	    <div class="form-group">
+	        {{ form_d.title.label(class="form-control-label") }}
+	        
+	        {{ form_d.title(class="form-control ") }}
+	        
+	    </div>
+	    <div class="form-group">
+	        {{ form_d.content.label(class="form-control-label") }}
+	        
+	        {{ form_d.content(class="form-control ") }}
+	        
+	    </div>
+	    
+	    <div class="form-group">
+                    {{ form_d.picture.label() }}
+                    {{ form_d.picture(class="form-control-file") }}
+                    {% if form_d.picture.errors %}
+                        {% for error in form_d.picture.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+	
+	<div class="form-group border-left mb-4">
+	    {{ form_d.submit(class="btn btn-outline-info") }}
+	    </div>
+	</fieldset>
+</form>
+
+
+
+
+
+
+    <h1>About Page</h1>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% block content %}
+
+<form class="modal-content animate" method="POST" action="{{ url_for('search_result') }}">
+            {{ formq.hidden_tag() }}
+            <fieldset class="form-group">
+              <div style="margin: 50px">
+                <legend class="border-bottom mb-4">Search Your Hobbies Here!!!</legend>
+                <div class="form-group">
+                    {{ formq.search_query.label(class="form-control-label") }}
+                    
+                    {{ formq.search_query(class="form-control ") }}
+                    
+                </div>
+                <div class="form-group border-left mb-4">
+                {{ formq.submit(class="btn btn-outline-info") }}
+                </div>
+            </fieldset>
+        </form>
+
+{% endblock content %}
