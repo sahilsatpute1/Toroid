@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% block content %}
+<div class='container'><h3 style="text-align: center;">In our website we are going to show you some of the gift which you can give you to your loving ones.</h3></div>
+<form class="modal-content animate" method="POST" action="{{ url_for('search_result') }}" style='margin-bottom: 50px'>
+            {{ formq.hidden_tag() }}
+            <fieldset class="form-group">
+              <div style="margin: 50px">
+                <legend class="border-bottom mb-4">Search Your Hobbies Here!!!</legend>
+                <div class="form-group">
+                    {{ formq.search_query.label(class="form-control-label") }}
+                    
+                    {{ formq.search_query(class="form-control ") }}
+                    
+                </div>
+                <div class="form-group border-left mb-4">
+                {{ formq.submit(class="btn btn-outline-info") }}
+                </div>
+            </fieldset>
+        </form>
+
+<div class='container'>
+    <div class="box">
+        <h2> How to Use ??</h2>
+        <ul>
+          <li>Enter the Hobby of your loves one in the Above search box</li>
+          <li>Click on the search button, on the next page you will get some of the list of gift according to the hobby you enter</li>
+          <li>Click on any of gift you like, it will take to its detail page </li>
+          <li>Now here you can add this gift to your account for remembering in future</li>
+        </ul>
+    </div>
+
+<h3>Try "All" And see the magic !!! </h3>
+    <div class='box'>
+        <a href="{{ url_for('contribution') }}" style="text-decoration-color: black; text-shadow: 0.5px "><h3 >Wanna Contribute to Our Database!!!</h3></a>
+    </div>
+</div>
+
+{% endblock content %}

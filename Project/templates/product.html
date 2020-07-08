@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container" style=' border: 2px solid #4CAF50;padding-bottom: 50px;'>
+        <div class="box">
+<article class="media content-section">
+    
+    <div class="media-body">
+      <div class="article-metadata">
+        <cite><strong><h1>{{ prod.title }}</h1></strong></cite>
+        <hr >
+        <img class="center" src="{{ url_for('static', filename='profile_pics/' + prod.image_file) }}" width="600" height="400" style="border: 1px solid black; 
+                border-radius:5px; 
+                padding:5px;  display: block;
+  margin-left: auto;
+  margin-right: auto;">
+        <dl><dt><ins><h3>Description : </h3></ins></dt>
+        <dd style="padding-left: 30px"><em><h5>{{ prod.content }}</h5></em></dd></dl>
+    </div>
+
+    <style>
+.button {
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  width: 60px;
+  background-color: white;
+  color: green;
+  font-size: 14px;height: 30px;
+  cursor: pointer;
+
+}
+
+.button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+    <a  href = "{{ url_for('product',prod_id=prod.prod_id,bol_=1) }}" style="margin-bottom: 100px; align-self:center;"><button class="button" >Add</button></a>   
+
+  </article>
+</div>
+    </div>
+
+
+{% endblock content %}

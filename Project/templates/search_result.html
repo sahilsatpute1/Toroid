@@ -1,0 +1,58 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+	.box{
+		font-size: 12px;
+		color: hsl(0, 0%, 60%);
+		border-radius: 4px;
+		box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+		overflow: hidden;
+		background-color: hsl(0, 0%, 100%);
+		display: -ms-flexbox;
+		display: flex;
+		width: 80%;
+		margin: 24px 16px 0;
+		padding: 0;
+	}
+	.pic{
+		padding: 10px;
+		border: 2px solid black;
+		margin :10px;
+		margin-right: 20px;
+	}
+	hr{ 
+  	padding: 10px;
+  	padding-left: 25px;
+    border:         none;
+    border-left:    1px solid hsla(200, 10%, 50%,100);
+    height:         180px;
+    width:          1px;       
+}
+</style>
+	<div class="container">
+		<h2><i> Search Result For "{{text}}"</i></h2>
+	</div>
+	{% for post in hob %}
+	<div class="container">
+        <div class="box" style="box-shadow: ">
+        	<div class="pic">
+        		<img src="{{ url_for('static', filename='profile_pics/' + post.image_file) }}" width="270px" height="200px">
+        	</div>
+        	<hr>
+	        <article class="media content-section">
+	          <div class="media-body">
+	            <h2><a class="article-title" href="{{ url_for('product',prod_id=post.prod_id,bol_=0) }}">{{ post.title }}</a></h2>
+	            <p><small><i>Tag : {{ post.tag }}</i></small></p>
+	            <h4><ins><dt>Description :</dt></ins></h4>
+	            <div class="article-content" style="white-space: pre-line; width: 80%; overflow: hidden; text-overflow:ellipsis;
+	            height: 50px; " >
+	            	<dd>{{ post.content }}</dd>
+	            </div>
+	          </div>
+	        </article>
+	    </div>
+	</div>
+	    {% endfor %}
+	<h2>Can't Find Good Result !!!!! </h2>
+	<a href="{{ url_for('home') }}"> New Search Here </a>
+{% endblock content %}
